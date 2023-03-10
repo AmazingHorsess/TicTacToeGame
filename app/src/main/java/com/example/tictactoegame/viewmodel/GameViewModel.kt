@@ -80,7 +80,10 @@ class GameViewModel:ViewModel() {
                     playerTurnHint = "Player 'X' Won",
                     playerCrossCount = state.playerCrossCount + 1,
                     currentTurn = BoardCellValue.NONE,
-                    IfWon = true
+                    IfWon = true,
+
+
+
                 )
             } else if (hasBoardFull()) {
                 state = state.copy(
@@ -120,6 +123,7 @@ class GameViewModel:ViewModel() {
             }
             boardCellItem[3] == boardValue && boardCellItem[6] == boardValue && boardCellItem[9] == boardValue -> {
                 state = state.copy(victoryType = VictoryType.VERTICALLINE3)
+
                 return true
             }
             boardCellItem[1] == boardValue && boardCellItem[5] == boardValue && boardCellItem[9] == boardValue -> {

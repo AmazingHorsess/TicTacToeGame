@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.tictactoegame.ui.theme.TicTacToeGameTheme
 import com.example.tictactoegame.viewmodel.GameViewModel
@@ -17,6 +18,7 @@ import com.example.tictactoegame.viewmodel.GameViewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             TicTacToeGameTheme {
                 val viewModel = viewModel<GameViewModel>()

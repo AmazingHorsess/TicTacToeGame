@@ -1,5 +1,4 @@
 package com.example.tictactoegame
-import android.app.GameState
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -17,21 +16,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import com.example.tictactoegame.actions.UserActions
+import com.example.tictactoegame.composableui.*
 import com.example.tictactoegame.model.BoardCellValue
 import com.example.tictactoegame.model.GameStatements
 import com.example.tictactoegame.model.VictoryType
-import com.example.tictactoegame.ui.theme.BlueCustom
-import com.example.tictactoegame.ui.theme.GrayBackground
+import com.example.tictactoegame.ui.theme.*
 import com.example.tictactoegame.viewmodel.GameViewModel
 
 
@@ -41,8 +43,23 @@ fun GameScreen(viewModel: GameViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(GrayBackground)
+            .background(
+                brush = Brush.verticalGradient(
+                    listOf(
+                        TopBackground1,
+                        TopBackground2,
+                        MiddleBackground1,
+                        MiddleBackground2,
+                        BottomBackground1,
+                        BottomBackground2,
+                        BottomBackground3,
+                        BottomBackground4
+                    )
+                )
+            )
             .padding(horizontal = 30.dp),
+
+
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
@@ -51,16 +68,18 @@ fun GameScreen(viewModel: GameViewModel) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Player: 'O' ${state.playerCircleCount}", fontSize = 16.sp)
-            Text(text = "Draw : ${state.drawCount}", fontSize = 16.sp)
-            Text(text = "Player: 'X' ${state.playerCrossCount}", fontSize = 16.sp)
+            Text(text = "Player: 'O' ${state.playerCircleCount}", fontSize = 21.sp, color = Color.White,fontFamily = best)
+            Text(text = "Draw : ${state.drawCount}", fontSize = 21.sp,color = Color.White,fontFamily = best)
+            Text(text = "Player: 'X' ${state.playerCrossCount}", fontSize = 21.sp,color = Color.White,fontFamily = best)
         }
         Text(
+            modifier =  Modifier.fillMaxWidth(),
             text = "Tic Tac Toe",
-            fontSize = 50.sp,
+            fontSize = 76.sp,
             fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.SansSerif,
-            color = BlueCustom
+            fontFamily = best,
+            color = BlueCustom,
+            textAlign = TextAlign.Center
         )
         Box(
             modifier = Modifier
@@ -71,21 +90,26 @@ fun GameScreen(viewModel: GameViewModel) {
                     shape = RoundedCornerShape(20.dp)
                 )
                 .clip(RoundedCornerShape(20.dp))
-                .background(GrayBackground),
+                .background(Gridbackground),
             contentAlignment = Alignment.Center
         ) {
-            GridBase()
             LazyVerticalGrid(
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
-                    .aspectRatio(1f),
-                columns = GridCells.Fixed(3)
+                    .aspectRatio(1f)
+                    ,
+                columns = GridCells.Fixed(3),
             ){
                 viewModel.boardCellItem.forEach {(cell, boardCellValue) ->
                     item{
                         Column(modifier = Modifier
                             .fillMaxWidth()
                             .aspectRatio(1f)
+                            .padding(7.dp)
+                            .clip(RoundedCornerShape(20.dp))
+                            .background(GridItemColor)
+
+
                             .clickable(
                                 interactionSource = MutableInteractionSource(),
                                 indication = null
@@ -98,13 +122,15 @@ fun GameScreen(viewModel: GameViewModel) {
                                 }else if (boardCellValue == BoardCellValue.CROSS){
                                     Cross()
                                 }
+
                                 
                             }
                         }
                     }
                 }
             }
-            Column(modifier = Modifier.fillMaxWidth()
+            Column(modifier = Modifier
+                .fillMaxWidth()
                 .aspectRatio(1f),
             verticalArrangement = Arrangement.Center
             , horizontalAlignment = Alignment.CenterHorizontally) {
@@ -124,7 +150,9 @@ fun GameScreen(viewModel: GameViewModel) {
             Text(
                 text = state.playerTurnHint,
                 fontSize = 24.sp,
-                fontStyle = FontStyle.Italic
+                fontStyle = FontStyle.Italic,
+                color = Color.White,
+                fontFamily = best
             )
             Button(
                 onClick = {
@@ -139,7 +167,9 @@ fun GameScreen(viewModel: GameViewModel) {
             ) {
                 Text(
                     text = "Play Again",
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    color = Color.White,
+                    fontFamily = best
                 )
             }
 

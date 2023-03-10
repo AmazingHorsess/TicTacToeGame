@@ -14,7 +14,8 @@ data class GameStatements(
 enum class BoardCellValue{
     CIRCLE,
     CROSS,
-    NONE
+    NONE,
+
 
 }
 enum class VictoryType{
@@ -26,7 +27,8 @@ enum class VictoryType{
     VERTICALLINE3,
     DISCOUNTLINE1,
     DISCOUNTLINE2,
-    NONE
+    NONE,
+
 
 
 }

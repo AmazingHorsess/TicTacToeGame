@@ -1,32 +1,18 @@
-package com.example.tictactoegame
+package com.example.tictactoegame.composableui
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PaintingStyle.Companion.Stroke
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.tictactoegame.ui.theme.Aqua
-import com.example.tictactoegame.ui.theme.BlueCustom
-import com.example.tictactoegame.ui.theme.GrayBackground
-import androidx.compose.ui.graphics.drawscope.Stroke
-import com.example.tictactoegame.ui.theme.GreenishYellow
+import com.example.tictactoegame.ui.theme.RedCross
+import com.example.tictactoegame.ui.theme.YellowCircle
 
 @Composable
 fun GridBase(){
@@ -75,13 +61,28 @@ fun GridBase(){
 fun Circle() {
     Canvas(
         modifier = Modifier
-            .size(60.dp)
+            .size(50.dp)
             .padding(5.dp)
     ) {
         drawCircle(
-            color = Aqua,
-            style = Stroke(width = 20f)
+            color = YellowCircle,
+            style = Stroke(width = 65f),
+
         )
+    }
+}
+@Composable
+fun CircleWin() {
+    Canvas(
+        modifier = Modifier
+            .size(50.dp)
+            .padding(5.dp)
+    ) {
+        drawCircle(
+            color = Color.White,
+            style = Stroke(width = 65f),
+
+            )
     }
 }
 
@@ -89,21 +90,45 @@ fun Circle() {
 fun Cross() {
     Canvas(
         modifier = Modifier
-            .size(60.dp)
+            .size(56.dp)
             .padding(5.dp)
     ) {
         drawLine(
 
-            color = Color.Yellow,
-            strokeWidth = 20f,
-            cap = StrokeCap.Round,
+            color = RedCross,
+            strokeWidth = 60f,
+            cap = StrokeCap.Butt,
             start = Offset(x = 0f, y = 0f),
             end = Offset(x = size.width, y = size.height)
         )
         drawLine(
-            color = Color.Yellow,
-            strokeWidth = 20f,
-            cap = StrokeCap.Round,
+            color = RedCross,
+            strokeWidth = 60f,
+            cap = StrokeCap.Butt,
+            start = Offset(x = 0f, y = size.height),
+            end = Offset(x = size.width, y = 0f)
+        )
+    }
+}
+@Composable
+fun CrossWin() {
+    Canvas(
+        modifier = Modifier
+            .size(56.dp)
+            .padding(5.dp)
+    ) {
+        drawLine(
+
+            color = Color.White,
+            strokeWidth = 60f,
+            cap = StrokeCap.Butt,
+            start = Offset(x = 0f, y = 0f),
+            end = Offset(x = size.width, y = size.height)
+        )
+        drawLine(
+            color = Color.White,
+            strokeWidth = 60f,
+            cap = StrokeCap.Butt,
             start = Offset(x = 0f, y = size.height),
             end = Offset(x = size.width, y = 0f)
         )
@@ -159,8 +184,18 @@ fun WinHorizontalLine1() {
             start = Offset(x = 0f, y = size.height*1/6),
             end = Offset(x = size.width, y = size.height*1/6)
         )
+
+
+
     }
-}
+
+
+        
+    }
+
+
+
+
 
 @Composable
 fun WinHorizontalLine2() {
@@ -205,7 +240,7 @@ fun WinDiagonalLine1() {
 fun WinDiagonalLine2() {
     Canvas(modifier = Modifier.size(300.dp)) {
         drawLine(
-            brush = Brush.linearGradient(),
+            color = Color.Red,
             strokeWidth = 10f,
             cap = StrokeCap.Round,
             start = Offset(x = 0f, y = size.height),
@@ -217,13 +252,6 @@ fun WinDiagonalLine2() {
 @Preview(showBackground = true)
 @Composable
 fun Prevs() {
-    WinVerticalLine1()
-    WinVerticalLine2()
-    WinVerticalLine3()
     WinHorizontalLine1()
-    WinHorizontalLine2()
-    WinHorizontalLine3()
-    WinDiagonalLine1()
-    WinDiagonalLine2()
 }
 
